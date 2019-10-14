@@ -2,8 +2,6 @@ import test from 'tape';
 import harden from '@agoric/harden';
 import { makeCake } from '../lib/layer-cake';
 
-const shouldBeHarden = Object.freeze;
-
 test('cajita-wobbly-point test', t => {
   try {
 
@@ -52,15 +50,17 @@ test('hardened-wobbly-point test', t => {
         toString() { return `<${self.getX()},${self.getY()}>`; },
       }));
     }
+    harden(BasePointLayer);
 
     function* WobblyPointLayer(wobble) {
       const [self, supr] = harden(yield harden({
         getX() { return supr.getX() + wobble++; },
       }));
     }
+    harden(WobblyPointLayer);
 
     function WobblyPoint(x, y, wobble) {
-      return makeCake(shouldBeHarden([
+      return makeCake(harden([
         BasePointLayer(x, y),
         WobblyPointLayer(wobble)
       ]));
