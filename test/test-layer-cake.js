@@ -4,35 +4,39 @@ import { makeCake } from '../lib/layer-cake';
 
 test('cajita-wobbly-point test', t => {
   try {
-
     function* BasePointLayer(x, y) {
       const [self] = yield {
-        getX() { return x; },
-        getY() { return y; },
-        toString() { return `<${self.getX()},${self.getY()}>`; },
+        getX() {
+          return x;
+        },
+        getY() {
+          return y;
+        },
+        toString() {
+          return `<${self.getX()},${self.getY()}>`;
+        },
       };
     }
 
     function* WobblyPointLayer(wobble) {
-      const [self, supr] = yield {
-        getX() { return supr.getX() + wobble++; },
+      const [_self, supr] = yield {
+        getX() {
+          // eslint-disable-next-line no-plusplus
+          return supr.getX() + wobble++;
+        },
       };
     }
 
     function WobblyPoint(x, y, wobble) {
-      return makeCake([
-        BasePointLayer(x, y),
-        WobblyPointLayer(wobble)
-      ]);
+      return makeCake([BasePointLayer(x, y), WobblyPointLayer(wobble)]);
     }
 
     const wp1 = WobblyPoint(3, 5, 0.1);
     const wp2 = WobblyPoint(3, 5, 0.1);
 
-    t.equal(''+wp1, '<3.1,5>');
-    t.equal(''+wp1, '<4.1,5>');
-    t.equal(''+wp2, '<3.1,5>');
-
+    t.equal(`${wp1}`, '<3.1,5>');
+    t.equal(`${wp1}`, '<4.1,5>');
+    t.equal(`${wp2}`, '<3.1,5>');
   } catch (e) {
     t.isNot(e, e, 'unexpected exception');
   } finally {
@@ -42,37 +46,45 @@ test('cajita-wobbly-point test', t => {
 
 test('hardened-wobbly-point test', t => {
   try {
-
     function* BasePointLayer(x, y) {
-      const [self] = harden(yield harden({
-        getX() { return x; },
-        getY() { return y; },
-        toString() { return `<${self.getX()},${self.getY()}>`; },
-      }));
+      const [self] = harden(
+        yield harden({
+          getX() {
+            return x;
+          },
+          getY() {
+            return y;
+          },
+          toString() {
+            return `<${self.getX()},${self.getY()}>`;
+          },
+        }),
+      );
     }
     harden(BasePointLayer);
 
     function* WobblyPointLayer(wobble) {
-      const [self, supr] = harden(yield harden({
-        getX() { return supr.getX() + wobble++; },
-      }));
+      const [_self, supr] = harden(
+        yield harden({
+          getX() {
+            // eslint-disable-next-line no-plusplus
+            return supr.getX() + wobble++;
+          },
+        }),
+      );
     }
     harden(WobblyPointLayer);
 
     function WobblyPoint(x, y, wobble) {
-      return makeCake(harden([
-        BasePointLayer(x, y),
-        WobblyPointLayer(wobble)
-      ]));
+      return makeCake(harden([BasePointLayer(x, y), WobblyPointLayer(wobble)]));
     }
 
     const wp1 = WobblyPoint(3, 5, 0.1);
     const wp2 = WobblyPoint(3, 5, 0.1);
 
-    t.equal(''+wp1, '<3.1,5>');
-    t.equal(''+wp1, '<4.1,5>');
-    t.equal(''+wp2, '<3.1,5>');
-
+    t.equal(`${wp1}`, '<3.1,5>');
+    t.equal(`${wp1}`, '<4.1,5>');
+    t.equal(`${wp2}`, '<3.1,5>');
   } catch (e) {
     t.isNot(e, e, 'unexpected exception');
   } finally {
