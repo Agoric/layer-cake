@@ -27,12 +27,12 @@ test('cajita-wobbly-point-class test', t => {
       };
     }
 
-    function WobblyPoint(x, y, wobble) {
+    function makeWobblyPoint(x, y, wobble) {
       return makeClassCake([BasePointLayer(x, y), WobblyPointLayer(wobble)]);
     }
 
-    const wp1 = WobblyPoint(3, 5, 0.1);
-    const wp2 = WobblyPoint(3, 5, 0.1);
+    const wp1 = makeWobblyPoint(3, 5, 0.1);
+    const wp2 = makeWobblyPoint(3, 5, 0.1);
 
     t.equal(`${wp1}`, '<3.1,5>');
     t.equal(`${wp1}`, '<4.1,5>');
@@ -75,14 +75,14 @@ test('hardened-wobbly-point-class test', t => {
     }
     harden(WobblyPointLayer);
 
-    function WobblyPoint(x, y, wobble) {
+    function makeWobblyPoint(x, y, wobble) {
       return makeClassCake(
         harden([BasePointLayer(x, y), WobblyPointLayer(wobble)]),
       );
     }
 
-    const wp1 = WobblyPoint(3, 5, 0.1);
-    const wp2 = WobblyPoint(3, 5, 0.1);
+    const wp1 = makeWobblyPoint(3, 5, 0.1);
+    const wp2 = makeWobblyPoint(3, 5, 0.1);
 
     t.equal(`${wp1}`, '<3.1,5>');
     t.equal(`${wp1}`, '<4.1,5>');

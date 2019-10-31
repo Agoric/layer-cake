@@ -27,12 +27,15 @@ test('cajita-wobbly-point-trait test', t => {
       };
     }
 
-    function WobblyPoint(x, y, wobble) {
-      return makeTraitCake([AbstractPointLayer(x, y), WobblyPointLayer(wobble)]);
+    function makeWobblyPoint(x, y, wobble) {
+      return makeTraitCake([
+        AbstractPointLayer(x, y),
+        WobblyPointLayer(wobble),
+      ]);
     }
 
-    const wp1 = WobblyPoint(3, 5, 0.1);
-    const wp2 = WobblyPoint(3, 5, 0.1);
+    const wp1 = makeWobblyPoint(3, 5, 0.1);
+    const wp2 = makeWobblyPoint(3, 5, 0.1);
 
     t.equal(`${wp1}`, '<3.1,5>');
     t.equal(`${wp1}`, '<4.1,5>');
@@ -75,14 +78,14 @@ test('hardened-wobbly-point-trait test', t => {
     }
     harden(WobblyPointLayer);
 
-    function WobblyPoint(x, y, wobble) {
+    function makeWobblyPoint(x, y, wobble) {
       return makeTraitCake(
         harden([AbstractPointLayer(x, y), WobblyPointLayer(wobble)]),
       );
     }
 
-    const wp1 = WobblyPoint(3, 5, 0.1);
-    const wp2 = WobblyPoint(3, 5, 0.1);
+    const wp1 = makeWobblyPoint(3, 5, 0.1);
+    const wp2 = makeWobblyPoint(3, 5, 0.1);
 
     t.equal(`${wp1}`, '<3.1,5>');
     t.equal(`${wp1}`, '<4.1,5>');
