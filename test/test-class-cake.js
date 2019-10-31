@@ -1,8 +1,8 @@
 import test from 'tape';
 import harden from '@agoric/harden';
-import { makeCake } from '../lib/layer-cake';
+import { makeClassCake } from '../lib/layer-cake';
 
-test('cajita-wobbly-point test', t => {
+test('cajita-wobbly-point-class test', t => {
   try {
     function* BasePointLayer(x, y) {
       const [self] = yield {
@@ -28,7 +28,7 @@ test('cajita-wobbly-point test', t => {
     }
 
     function WobblyPoint(x, y, wobble) {
-      return makeCake([BasePointLayer(x, y), WobblyPointLayer(wobble)]);
+      return makeClassCake([BasePointLayer(x, y), WobblyPointLayer(wobble)]);
     }
 
     const wp1 = WobblyPoint(3, 5, 0.1);
@@ -44,7 +44,7 @@ test('cajita-wobbly-point test', t => {
   }
 });
 
-test('hardened-wobbly-point test', t => {
+test('hardened-wobbly-point-class test', t => {
   try {
     function* BasePointLayer(x, y) {
       const [self] = harden(
@@ -76,7 +76,9 @@ test('hardened-wobbly-point test', t => {
     harden(WobblyPointLayer);
 
     function WobblyPoint(x, y, wobble) {
-      return makeCake(harden([BasePointLayer(x, y), WobblyPointLayer(wobble)]));
+      return makeClassCake(
+        harden([BasePointLayer(x, y), WobblyPointLayer(wobble)]),
+      );
     }
 
     const wp1 = WobblyPoint(3, 5, 0.1);
