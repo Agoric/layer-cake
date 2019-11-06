@@ -10,7 +10,7 @@ The classic object or object-oriented programming has public methods and private
 class Point {
   #x, #y;
   constructor(x, y) {
-    this.#x = y;
+    this.#x = x;
     this.#y = y;
   }
   getX() { return this.#x; }
