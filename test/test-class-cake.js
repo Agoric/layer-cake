@@ -4,8 +4,8 @@ import { makeClassCake } from '../lib/layer-cake';
 
 test('cajita-wobbly-point-class test', t => {
   try {
-    function* BasePointLayer(x, y) {
-      const [self] = yield {
+    function BasePointLayer(x, y) {
+      return self => ({
         getX() {
           return x;
         },
@@ -15,16 +15,16 @@ test('cajita-wobbly-point-class test', t => {
         toString() {
           return `<${self.getX()},${self.getY()}>`;
         },
-      };
+      });
     }
 
-    function* WobblyPointLayer(wobble) {
-      const [_self, supr] = yield {
+    function WobblyPointLayer(wobble) {
+      return (_self, supr) => ({
         getX() {
           // eslint-disable-next-line no-plusplus
           return supr.getX() + wobble++;
         },
-      };
+      });
     }
 
     function makeWobblyPoint(x, y, wobble) {
@@ -46,32 +46,28 @@ test('cajita-wobbly-point-class test', t => {
 
 test('hardened-wobbly-point-class test', t => {
   try {
-    function* BasePointLayer(x, y) {
-      const [self] = harden(
-        yield harden({
-          getX() {
-            return x;
-          },
-          getY() {
-            return y;
-          },
-          toString() {
-            return `<${self.getX()},${self.getY()}>`;
-          },
-        }),
-      );
+    function BasePointLayer(x, y) {
+      return self => harden({
+        getX() {
+          return x;
+        },
+        getY() {
+          return y;
+        },
+        toString() {
+          return `<${self.getX()},${self.getY()}>`;
+        },
+      });
     }
     harden(BasePointLayer);
 
-    function* WobblyPointLayer(wobble) {
-      const [_self, supr] = harden(
-        yield harden({
-          getX() {
-            // eslint-disable-next-line no-plusplus
-            return supr.getX() + wobble++;
-          },
-        }),
-      );
+    function WobblyPointLayer(wobble) {
+      return (_self, supr) => harden({
+        getX() {
+          // eslint-disable-next-line no-plusplus
+          return supr.getX() + wobble++;
+        },
+      })
     }
     harden(WobblyPointLayer);
 

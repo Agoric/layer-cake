@@ -4,8 +4,8 @@ import { makeTraitCake } from '../lib/layer-cake';
 
 test('cajita-wobbly-point-trait test', t => {
   try {
-    function* AbstractPointLayer(x, y) {
-      const [self] = yield {
+    function AbstractPointLayer(x, y) {
+      return self => ({
         baseGetX() {
           return x;
         },
@@ -15,16 +15,16 @@ test('cajita-wobbly-point-trait test', t => {
         toString() {
           return `<${self.getX()},${self.getY()}>`;
         },
-      };
+      });
     }
 
-    function* WobblyPointLayer(wobble) {
-      const [self] = yield {
+    function WobblyPointLayer(wobble) {
+      return self => ({
         getX() {
           // eslint-disable-next-line no-plusplus
           return self.baseGetX() + wobble++;
         },
-      };
+      });
     }
 
     function makeWobblyPoint(x, y, wobble) {
@@ -49,32 +49,28 @@ test('cajita-wobbly-point-trait test', t => {
 
 test('hardened-wobbly-point-trait test', t => {
   try {
-    function* AbstractPointLayer(x, y) {
-      const [self] = harden(
-        yield harden({
-          baseGetX() {
-            return x;
-          },
-          getY() {
-            return y;
-          },
-          toString() {
-            return `<${self.getX()},${self.getY()}>`;
-          },
-        }),
-      );
+    function AbstractPointLayer(x, y) {
+      return self => harden({
+        baseGetX() {
+          return x;
+        },
+        getY() {
+          return y;
+        },
+        toString() {
+          return `<${self.getX()},${self.getY()}>`;
+        },
+      });
     }
     harden(AbstractPointLayer);
 
-    function* WobblyPointLayer(wobble) {
-      const [self] = harden(
-        yield harden({
-          getX() {
-            // eslint-disable-next-line no-plusplus
-            return self.baseGetX() + wobble++;
-          },
-        }),
-      );
+    function WobblyPointLayer(wobble) {
+      return self => harden({
+        getX() {
+          // eslint-disable-next-line no-plusplus
+          return self.baseGetX() + wobble++;
+        },
+      });
     }
     harden(WobblyPointLayer);
 
