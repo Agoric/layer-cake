@@ -4,7 +4,7 @@ Helpers for class/traits-like composition of objects-as-closures
 
 ## The Objects-as-closures Pattern
 
-The classic object or object-oriented programming has public methods and private instance variables. There are several ways to encode this in JavaScript. The following code uses JavaScript's class syntax with the [new support for private instance variables](https://github.com/tc39/proposal-private-methods).
+The classic object or object-oriented programming has public methods and private instance variables. There are several ways to encode this in JavaScript. The following code uses JavaScript's class syntax with the [new support for private instance variables](https://github.com/tc39/proposal-class-fields#private-fields).
 
 ```js
 class Point {
@@ -90,10 +90,6 @@ function makeWobblyPoint(x, y, wobble) {
 ```
 
 The pattern above has more of the flexibility associated with traits or mixins. Each layer is expressed separately. The layers are then combined by a distinct maker function `makeWobblyPoint`. Different making functions can combine overlapping sets of layers in different manners.
-
-The code for expressing the combinable layers is written in the peculiar manner shown above, using intermediate function. We introduce this peculiar pattern to solve a hard problem: The code in each layer needs to capture a lexical variable that refers to the object as a whole. However, the object-as-a-whole is not yet assembled, and will be assembled only by a distinct piece of code written in a distinct scope.
-
-In the pattern shown above, the methods of a given layer are defined in the scope of variables such as `self` and `supr` that are provided as arguments to the intermediate function. The helper function `makeClassCake` exported by this repository first runs through all the intermediate functions it is given, extracting the layer functions from each, combining them into the overall object. Only when the object is complete does it go back to these generators, in order to bind that object to each layer's `self` variable.
 
 The list of layers given to `makeClassCake` is in order from super-class-like to subclass-like. This enables each layer to also bind a `supr` variable to serve a function analogous to the `super` keyword supported by classes. The `supr` variable is bound to a combination of all layers above (to the left of) the given layer.
 
