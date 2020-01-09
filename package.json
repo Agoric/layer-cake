@@ -2,9 +2,9 @@
   "name": "@agoric/layer-cake",
   "version": "0.0.1",
   "description": "???",
-  "main": "dist/layer-cake.cjs.js",
-  "module": "dist/layer-cake.esm.js",
-  "browser": "dist/layer-cake.umd.js",
+  "main": "lib/layer-cake.js",
+  "module": "lib/layer-cake.js",
+  "browser": "lib/layer-cake.js",
   "scripts": {
     "test": "tape -r esm 'test/**/*.js'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
