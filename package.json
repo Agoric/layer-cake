@@ -1,7 +1,7 @@
 {
   "name": "@agoric/layer-cake",
   "version": "0.0.1",
-  "description": "???",
+  "description": "Class/traits-like composition of objects-as-closures",
   "main": "lib/layer-cake.js",
   "module": "lib/layer-cake.js",
   "browser": "lib/layer-cake.js",
