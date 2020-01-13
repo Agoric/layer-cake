@@ -1,13 +1,15 @@
 name: Run tests
 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: yarn install
-      run: yarn install
-    - name: yarn test
-     run: yarn test
+    - run: yarn install
+    - run: yarn test
