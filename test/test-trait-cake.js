@@ -1,32 +1,33 @@
 import test from 'tape';
 import harden from '@agoric/harden';
-import { makeTraitCake } from '../lib/layer-cake';
-
+import { makeTraitCake } from '../src/layer-cake';
 
 test('hardened-wobbly-point-trait test', t => {
   try {
     function AbstractPointLayer(x, y) {
-      return self => harden({
-        baseGetX() {
-          return x;
-        },
-        getY() {
-          return y;
-        },
-        toString() {
-          return `<${self.getX()},${self.getY()}>`;
-        },
-      });
+      return self =>
+        harden({
+          baseGetX() {
+            return x;
+          },
+          getY() {
+            return y;
+          },
+          toString() {
+            return `<${self.getX()},${self.getY()}>`;
+          },
+        });
     }
     harden(AbstractPointLayer);
 
     function WobblyPointLayer(wobble) {
-      return self => harden({
-        getX() {
-          // eslint-disable-next-line no-plusplus
-          return self.baseGetX() + wobble++;
-        },
-      });
+      return self =>
+        harden({
+          getX() {
+            // eslint-disable-next-line no-plusplus
+            return self.baseGetX() + wobble++;
+          },
+        });
     }
     harden(WobblyPointLayer);
 
