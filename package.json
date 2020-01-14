@@ -1,10 +1,9 @@
 {
   "name": "@agoric/layer-cake",
   "version": "0.0.1",
-  "description": "???",
-  "main": "lib/layer-cake.js",
-  "module": "lib/layer-cake.js",
-  "browser": "lib/layer-cake.js",
+  "description": "Class/traits-like composition of objects-as-closures",
+  "main": "src/layer-cake.js",
+  "module": "src/layer-cake.js",
   "scripts": {
     "test": "tape -r esm 'test/**/*.js'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
@@ -15,21 +14,23 @@
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-jessie": "0.0.3",
+    "eslint-config-jessie": "0.0.4",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.0",
     "prettier": "^1.18.2",
     "tap-spec": "^5.0.0",
-    "tape": "^4.11.0",
-    "@agoric/harden": "^0.0.4"
+    "tape": "^4.11.0"
   },
   "dependencies": {
+    "@agoric/harden": "^0.0.4",
     "esm": "^3.2.5"
   },
-  "keywords": [],
+  "keywords": [
+    "composition"
+  ],
   "files": [
-    "dist"
+    "src", "NEWS.md"
   ],
   "repository": {
     "type": "git",
@@ -40,5 +41,33 @@
   "bugs": {
     "url": "https://github.com/Agoric/layer-cake/issues"
   },
-  "homepage": "https://github.com/Agoric/layer-cake#readme"
+  "homepage": "https://github.com/Agoric/layer-cake#readme",
+  "eslintConfig": {
+    "extends": ["airbnb-base", "plugin:prettier/recommended"],
+    "env": {
+      "es6": true
+    },
+    "rules": {
+      "implicit-arrow-linebreak": "off",
+      "function-paren-newline": "off",
+      "arrow-parens": "off",
+      "strict": "off",
+      "no-console": "off",
+      "no-unused-vars": ["error", {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }],
+      "no-return-assign": "off",
+      "no-param-reassign": "off",
+      "no-restricted-syntax": ["off", "ForOfStatement"],
+      "no-unused-expressions": "off",
+      "no-loop-func": "off",
+      "no-inner-declarations": "off",
+      "import/prefer-default-export": "off"
+    }
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "singleQuote": true
+  }
 }
