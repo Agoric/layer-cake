@@ -34,7 +34,7 @@ Before submitting a pull request, please:
 * `git commit -m "bump version"`
 * `git tag -a v$VERSION -m "v$VERSION"`
 * `yarn publish --access public`
-* `yarn version prerelease --preid=dev`
+* `yarn version --prerelease --preid=dev`
 * `git push`
 * `git push --tags`
 

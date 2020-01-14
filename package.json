@@ -1,6 +1,6 @@
 {
   "name": "@agoric/layer-cake",
-  "version": "0.0.1",
+  "version": "0.0.2-dev.0",
   "description": "Class/traits-like composition of objects-as-closures",
   "main": "src/layer-cake.js",
   "module": "src/layer-cake.js",
@@ -30,7 +30,8 @@
     "composition"
   ],
   "files": [
-    "src", "NEWS.md"
+    "src",
+    "NEWS.md"
   ],
   "repository": {
     "type": "git",
@@ -43,7 +44,10 @@
   },
   "homepage": "https://github.com/Agoric/layer-cake#readme",
   "eslintConfig": {
-    "extends": ["airbnb-base", "plugin:prettier/recommended"],
+    "extends": [
+      "airbnb-base",
+      "plugin:prettier/recommended"
+    ],
     "env": {
       "es6": true
     },
@@ -53,13 +57,19 @@
       "arrow-parens": "off",
       "strict": "off",
       "no-console": "off",
-      "no-unused-vars": ["error", {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_"
-      }],
+      "no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_"
+        }
+      ],
       "no-return-assign": "off",
       "no-param-reassign": "off",
-      "no-restricted-syntax": ["off", "ForOfStatement"],
+      "no-restricted-syntax": [
+        "off",
+        "ForOfStatement"
+      ],
       "no-unused-expressions": "off",
       "no-loop-func": "off",
       "no-inner-declarations": "off",
