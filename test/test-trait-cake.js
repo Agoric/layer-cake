@@ -2,10 +2,10 @@ import test from 'tape';
 import harden from '@agoric/harden';
 import { makeTraitCake } from '../src/layer-cake';
 
-test('hardened-wobbly-point-trait test', t => {
+test('hardened-wobbly-point-trait test', (t) => {
   try {
     function AbstractPointLayer(x, y) {
-      return self =>
+      return (self) =>
         harden({
           baseGetX() {
             return x;
@@ -21,7 +21,7 @@ test('hardened-wobbly-point-trait test', t => {
     harden(AbstractPointLayer);
 
     function WobblyPointLayer(wobble) {
-      return self =>
+      return (self) =>
         harden({
           getX() {
             // eslint-disable-next-line no-plusplus
