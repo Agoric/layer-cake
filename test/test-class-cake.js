@@ -2,10 +2,10 @@ import test from 'tape';
 import harden from '@agoric/harden';
 import { makeClassCake } from '../src/layer-cake';
 
-test('hardened-wobbly-point-class test', t => {
+test('hardened-wobbly-point-class test', (t) => {
   try {
     function BasePointLayer(x, y) {
-      return self =>
+      return (self) =>
         harden({
           getX() {
             return x;
